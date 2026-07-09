@@ -1,0 +1,79 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "title": "Conferencia de Innovación Tecnológica",
+      "date": "2026-08-10",
+      "location": "Auditorio Principal",
+      "category": "Conferencia",
+      "description": "Evento académico enfocado en tendencias tecnológicas e innovación.",
+      "speaker": "Ing. Carlos Torres"
+    },
+    {
+      "id": "2",
+      "title": "Taller de React para Principiantes",
+      "date": "2026-08-15",
+      "location": "Laboratorio de Sistemas",
+      "category": "Taller",
+      "description": "Aprende a construir interfaces con React desde cero.",
+      "speaker": "Prof. Ana Ruiz"
+    },
+    {
+      "id": "3",
+      "title": "Taller de uso de frontend con React",
+      "date": "2026-08-16",
+      "location": "Laboratorio de Sistemas",
+      "category": "Taller",
+      "description": "Aprende a utilizar React para desarrollar interfaces de usuario.",
+      "speaker": "Prof. Ana Ruiz"
+    },
+    {
+      "id": "4",
+      "title": "Conferencia de nuevas tecnologías",
+      "date": "2026-08-19",
+      "location": "Laboratorio de Sistemas",
+      "category": "Conferencia",
+      "description": "Evento académico sobre las últimas tendencias tecnológicas.",
+      "speaker": "Ing. Carlos Torres"
+    },
+    {
+      "title": "Conferencia de nuevas tecnologías 2",
+      "description": "Evento académico sobre las últimas tendencias tecnológicas 2",
+      "date": "2026-08-21",
+      "location": "Laboratorio de Sistemas 2",
+      "category": "Conferencia Magistral",
+      "speaker": "Ing. Oscar Vasquez",
+      "id": "5"
+    },
+    {
+      "title": "Taller de Backend con Node.js",
+      "description": "Taller sobre el uso de Node.js para desarrollo Backend",
+      "date": "0026-08-26",
+      "location": "Laboratorio de Sistemas",
+      "category": "Taller",
+      "speaker": "Ing. Oscar Vasquez",
+      "id": "pEFZhTqymAU"
+    }
+  ],
+  "participants": [
+    {
+      "id": "1",
+      "name": "Ana López",
+      "email": "ana@email.com"
+    },
+    {
+      "id": "2",
+      "name": "Luis Pérez",
+      "email": "luis@email.com"
+    }
+  ],
+  "registrations": [
+    {
+      "id": "1",
+      "participantName": "Ana López",
+      "participantEmail": "ana@email.com",
+      "eventId": 1
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
