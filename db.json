@@ -52,47 +52,88 @@
       "location": "Laboratorio de Sistemas",
       "category": "Taller",
       "speaker": "Ing. Oscar Vasquez",
-      "id": "pEFZhTqymAU"
+      "id": "6"
     }
   ],
   "participants": [
     {
-      "id": "1",
       "name": "Ana López",
-      "email": "ana@email.com"
+      "email": "ana@email.com",
+      "phone": "965441668",
+      "career": "Ingeniería de Minas",
+      "id": "1"
     },
     {
-      "id": "2",
       "name": "Luis Pérez",
-      "email": "luis@email.com"
+      "email": "luis@email.com",
+      "phone": "965478954",
+      "career": "Ingeniería Industrial",
+      "id": "2"
     },
     {
-      "id": "3",
       "name": "Mario Gomez",
-      "email": "mario@email.com"
+      "email": "mario@email.com",
+      "phone": "987425654",
+      "career": "Ingeniería Industrial",
+      "id": "3"
     },
     {
-      "id": "4",
       "name": "Angel Lima",
-      "email": "angel@email.com"
+      "email": "angel@email.com",
+      "phone": "964578954",
+      "career": "Ingeniería Mecanica",
+      "id": "4"
     },
     {
-      "id": "5",
       "name": "Luisa Amado",
-      "email": "luisa@email.com"
+      "email": "luisa@email.com",
+      "phone": "996547855",
+      "career": "Ingeniería de Minas",
+      "id": "5"
     },
     {
       "id": "6",
       "name": "María González",
-      "email": "maria@email.com"
+      "email": "maria@email.com",
+      "phone": "964309329",
+      "career": "Ingeniería de Sistemas"
+    },
+    {
+      "name": "Avril Vasquez Arias",
+      "email": "avril.arias@gmail.com",
+      "phone": "964309398",
+      "career": "Ingeniería de Sistemas",
+      "id": "u0LasAYvQTc"
     }
   ],
   "registrations": [
     {
-      "id": "1",
-      "participantName": "Ana López",
-      "participantEmail": "ana@email.com",
-      "eventId": 1
+      "participantId": 1,
+      "eventId": 1,
+      "status": "Confirmado",
+      "registeredAt": "2026-07-01",
+      "id": "1"
+    },
+    {
+      "participantId": 2,
+      "eventId": 6,
+      "status": "Pendiente",
+      "registeredAt": "2026-07-05",
+      "id": "2"
+    },
+    {
+      "participantId": 3,
+      "eventId": 1,
+      "status": "Confirmado",
+      "registeredAt": "2026-07-08",
+      "id": "3"
+    },
+    {
+      "participantId": 4,
+      "eventId": 4,
+      "status": "Confirmado",
+      "registeredAt": "2026-07-09",
+      "id": "NYM7oWuhGAA"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

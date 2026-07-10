@@ -1,18 +1,18 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import AlertMessage from '../components/AlertMessage';
 import ConfirmModal from '../components/ConfirmModal';
 import SearchBar from '../components/SearchBar';
-import api from '../services/api';
 import { getEvents } from '../services/eventService';
 import { getParticipants } from '../services/participantService';
 import {
     getRegistrations,
     createRegistration,
     deleteRegistration
-    } from '../services/registrationService';
+} from '../services/registrationService';
 
-    const RegistrationPage = () => {
+const RegistrationPage = () => {
     const [registrations, setRegistrations] = useState([]);
     const [participants, setParticipants] = useState([]);
     const [events, setEvents] = useState([]);
@@ -88,6 +88,7 @@ import {
 
         try {
         setSaving(true);
+
         await createRegistration({
             participantId: Number(formData.participantId),
             eventId: Number(formData.eventId),
@@ -143,6 +144,11 @@ import {
         setShowModal(false);
         setSelectedRegistrationId(null);
         }
+    };
+
+    const handleCancelDelete = () => {
+        setShowModal(false);
+        setSelectedRegistrationId(null);
     };
 
     const filteredRegistrations = useMemo(() => {
@@ -236,7 +242,11 @@ import {
                 </div>
 
                 <div className="d-flex justify-content-end mt-3">
-                <button type="submit" className="btn btn-primary" disabled={saving}>
+                <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={saving}
+                >
                     {saving ? 'Guardando...' : 'Registrar inscripción'}
                 </button>
                 </div>
@@ -272,22 +282,34 @@ import {
                         <h5 className="card-title fw-bold">
                             {participant?.name || 'Participante no encontrado'}
                         </h5>
+
                         <p className="mb-1">
                             <strong>Evento:</strong> {event?.title || 'Evento no encontrado'}
                         </p>
+
                         <p className="mb-1">
                             <strong>Estado:</strong> {reg.status || 'Sin estado'}
                         </p>
+
                         <p className="mb-3">
                             <strong>Fecha:</strong> {reg.registeredAt || 'No registrada'}
                         </p>
 
-                        <button
-                            className="btn btn-outline-danger btn-sm mt-auto"
+                        <div className="d-flex gap-2 mt-auto flex-wrap">
+                            <Link
+                            to={`/registration/edit/${reg.id}`}
+                            className="btn btn-outline-warning btn-sm"
+                            >
+                            Editar
+                            </Link>
+
+                            <button
+                            className="btn btn-outline-danger btn-sm"
                             onClick={() => handleDeleteClick(reg.id)}
-                        >
+                            >
                             Eliminar
-                        </button>
+                            </button>
+                        </div>
                         </div>
                     </div>
                     </div>
@@ -308,7 +330,7 @@ import {
             title="Eliminar inscripción"
             message="¿Seguro que deseas eliminar esta inscripción?"
             onConfirm={handleConfirmDelete}
-            onCancel={() => setShowModal(false)}
+            onCancel={handleCancelDelete}
         />
         </div>
     );

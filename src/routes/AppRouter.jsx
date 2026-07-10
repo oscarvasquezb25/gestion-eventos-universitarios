@@ -7,7 +7,9 @@ import EventsPage from '../pages/EventsPage';
 import EventDetail from '../pages/EventDetail';
 import EventFormPage from '../pages/EventFormPage';
 import ParticipantsPage from '../pages/ParticipantsPage';
+import ParticipantFormPage from '../pages/ParticipantFormPage';
 import RegistrationPage from '../pages/RegistrationPage';
+import RegistrationFormPage from '../pages/RegistrationFormPage';
 
 const NotFound = () => {
     return (
@@ -16,9 +18,9 @@ const NotFound = () => {
         <p className="lead text-muted">La página que buscas no existe.</p>
         </div>
     );
-};
+    };
 
-const AppRouter = () => {
+    const AppRouter = () => {
     return (
         <BrowserRouter>
         <div className="d-flex flex-column min-vh-100">
@@ -34,7 +36,11 @@ const AppRouter = () => {
                 <Route path="/events/:id" element={<EventDetail />} />
 
                 <Route path="/participants" element={<ParticipantsPage />} />
+                <Route path="/participants/new" element={<ParticipantFormPage />} />
+                <Route path="/participants/edit/:id" element={<ParticipantFormPage />} />
+
                 <Route path="/registration" element={<RegistrationPage />} />
+                <Route path="/registration/edit/:id" element={<RegistrationFormPage />} />
 
                 <Route path="*" element={<NotFound />} />
             </Routes>
@@ -47,4 +53,3 @@ const AppRouter = () => {
 };
 
 export default AppRouter;
-
