@@ -1,46 +1,109 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import Loading from '../components/Loading';
 import AlertMessage from '../components/AlertMessage';
 import ConfirmModal from '../components/ConfirmModal';
+import SearchBar from '../components/SearchBar';
+import {
+    getParticipants,
+    deleteParticipant
+} from '../services/participantService';
 
 const ParticipantsPage = () => {
-    const [participants, setParticipants] = useState([
-        { id: 1, name: 'Ana López', email: 'ana@email.com' },
-        { id: 2, name: 'Luis Pérez', email: 'luis@email.com' },
-        { id: 3, name: 'María Gómez', email: 'maria@email.com' }
-    ]);
-
-    const [alert, setAlert] = useState({
-        type: '',
-        message: ''
-    });
-
-    const [showModal, setShowModal] = useState(false);
+    const [participants, setParticipants] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [alert, setAlert] = useState({ type: '', message: '' });
+    const [search, setSearch] = useState('');
     const [selectedParticipantId, setSelectedParticipantId] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+
+    const loadParticipants = async () => {
+        try {
+        setLoading(true);
+        const data = await getParticipants();
+        setParticipants(Array.isArray(data) ? data : []);
+        } catch (error) {
+        console.error('Error cargando participantes:', error);
+        setAlert({
+            type: 'danger',
+            message: 'No se pudieron cargar los participantes.'
+        });
+        } finally {
+        setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        loadParticipants();
+    }, []);
+
+    const filteredParticipants = useMemo(() => {
+        const query = search.toLowerCase().trim();
+        if (!query) return participants;
+
+        return participants.filter((participant) => {
+        const name = participant?.name?.toLowerCase() || '';
+        const email = participant?.email?.toLowerCase() || '';
+        const career = participant?.career?.toLowerCase() || '';
+        const phone = participant?.phone?.toLowerCase() || '';
+
+        return (
+            name.includes(query) ||
+            email.includes(query) ||
+            career.includes(query) ||
+            phone.includes(query)
+        );
+        });
+    }, [participants, search]);
 
     const handleDeleteClick = (id) => {
         setSelectedParticipantId(id);
         setShowModal(true);
     };
 
-    const handleConfirmDelete = () => {
+    const handleConfirmDelete = async () => {
+        try {
+        await deleteParticipant(selectedParticipantId);
         setParticipants((prev) =>
-        prev.filter((participant) => participant.id !== selectedParticipantId)
+            prev.filter((p) => p.id !== selectedParticipantId)
         );
+        setAlert({
+            type: 'success',
+            message: 'Participante eliminado correctamente.'
+        });
+        } catch (error) {
+        console.error('Error eliminando participante:', error);
+        setAlert({
+            type: 'danger',
+            message: 'No se pudo eliminar el participante.'
+        });
+        } finally {
         setShowModal(false);
         setSelectedParticipantId(null);
-        setAlert({
-        type: 'success',
-        message: 'Participante eliminado correctamente.'
-        });
+        }
     };
 
     return (
         <div className="container py-5">
-        <div className="mb-4">
+        <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+            <div>
             <h2 className="fw-bold mb-1">Participantes</h2>
             <p className="text-muted mb-0">
-            Gestión básica de participantes registrados.
+                Gestiona la lista de participantes registrados.
             </p>
+            </div>
+
+            <Link to="/participants/new" className="btn btn-success">
+            + Nuevo participante
+            </Link>
+        </div>
+
+        <div className="mb-4">
+            <SearchBar
+            value={search}
+            onChange={setSearch}
+            placeholder="Buscar por nombre, correo, carrera o teléfono..."
+            />
         </div>
 
         <AlertMessage
@@ -49,37 +112,49 @@ const ParticipantsPage = () => {
             onClose={() => setAlert({ type: '', message: '' })}
         />
 
-        <div className="card shadow-sm">
-            <div className="card-body p-0">
-            <div className="table-responsive">
-                <table className="table table-hover mb-0">
-                <thead className="table-light">
-                    <tr>
-                    <th>Nombre</th>
-                    <th>Correo</th>
-                    <th className="text-end">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {participants.map((participant) => (
-                    <tr key={participant.id}>
-                        <td>{participant.name}</td>
-                        <td>{participant.email}</td>
-                        <td className="text-end">
+        {loading ? (
+            <Loading message="Cargando participantes..." />
+        ) : (
+            <div className="row g-4">
+            {filteredParticipants.length > 0 ? (
+                filteredParticipants.map((participant) => (
+                <div className="col-md-6 col-lg-4" key={participant.id}>
+                    <div className="card shadow-sm h-100">
+                    <div className="card-body d-flex flex-column">
+                        <h5 className="card-title fw-bold">
+                        {participant.name || 'Sin nombre'}
+                        </h5>
+                        <p className="mb-1"><strong>Email:</strong> {participant.email || 'No registrado'}</p>
+                        <p className="mb-1"><strong>Teléfono:</strong> {participant.phone || 'No registrado'}</p>
+                        <p className="mb-3"><strong>Carrera:</strong> {participant.career || 'No registrada'}</p>
+
+                        <div className="d-flex gap-2 mt-auto flex-wrap">
+                        <Link
+                            to={`/participants/edit/${participant.id}`}
+                            className="btn btn-outline-warning btn-sm"
+                        >
+                            Editar
+                        </Link>
                         <button
                             className="btn btn-outline-danger btn-sm"
                             onClick={() => handleDeleteClick(participant.id)}
                         >
                             Eliminar
                         </button>
-                        </td>
-                    </tr>
-                    ))}
-                </tbody>
-                </table>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                ))
+            ) : (
+                <div className="col-12">
+                <div className="alert alert-warning text-center">
+                    No se encontraron participantes.
+                </div>
+                </div>
+            )}
             </div>
-            </div>
-        </div>
+        )}
 
         <ConfirmModal
             show={showModal}

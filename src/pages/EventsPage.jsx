@@ -47,12 +47,14 @@ const EventsPage = () => {
         const category = event?.category?.toLowerCase() || '';
         const location = event?.location?.toLowerCase() || '';
         const description = event?.description?.toLowerCase() || '';
+        const speaker = event?.speaker?.toLowerCase() || '';
 
         return (
             title.includes(query) ||
             category.includes(query) ||
             location.includes(query) ||
-            description.includes(query)
+            description.includes(query) ||
+            speaker.includes(query)
         );
         });
     }, [events, search]);
@@ -108,7 +110,7 @@ const EventsPage = () => {
             <SearchBar
             value={search}
             onChange={setSearch}
-            placeholder="Buscar por título, categoría, lugar o descripción..."
+            placeholder="Buscar por título, categoría, lugar, ponente o descripción..."
             />
         </div>
 
@@ -150,3 +152,4 @@ const EventsPage = () => {
 };
 
 export default EventsPage;
+

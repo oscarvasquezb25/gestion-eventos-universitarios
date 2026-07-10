@@ -16,9 +16,9 @@ const NotFound = () => {
         <p className="lead text-muted">La página que buscas no existe.</p>
         </div>
     );
-    };
+};
 
-    const AppRouter = () => {
+const AppRouter = () => {
     return (
         <BrowserRouter>
         <div className="d-flex flex-column min-vh-100">
@@ -27,12 +27,15 @@ const NotFound = () => {
             <main className="flex-grow-1">
             <Routes>
                 <Route path="/" element={<Home />} />
+
                 <Route path="/events" element={<EventsPage />} />
                 <Route path="/events/new" element={<EventFormPage />} />
                 <Route path="/events/edit/:id" element={<EventFormPage />} />
                 <Route path="/events/:id" element={<EventDetail />} />
+
                 <Route path="/participants" element={<ParticipantsPage />} />
                 <Route path="/registration" element={<RegistrationPage />} />
+
                 <Route path="*" element={<NotFound />} />
             </Routes>
             </main>
@@ -44,3 +47,4 @@ const NotFound = () => {
 };
 
 export default AppRouter;
+

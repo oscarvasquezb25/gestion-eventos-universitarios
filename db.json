@@ -37,12 +37,12 @@
       "speaker": "Ing. Carlos Torres"
     },
     {
-      "title": "Conferencia de nuevas tecnologías 2",
-      "description": "Evento académico sobre las últimas tendencias tecnológicas 2",
-      "date": "2026-08-21",
-      "location": "Laboratorio de Sistemas 2",
-      "category": "Conferencia Magistral",
-      "speaker": "Ing. Oscar Vasquez",
+      "title": "Curso de Inteligencia Artificial",
+      "description": "Curso intensivo sobre fundamentos y aplicaciones de la Inteligencia Artificial",
+      "date": "2026-09-01",
+      "location": "Laboratorio de Tecnologías Avanzadas",
+      "category": "Curso Taller",
+      "speaker": "Ing. Angelica Rojas",
       "id": "5"
     },
     {
@@ -65,6 +65,26 @@
       "id": "2",
       "name": "Luis Pérez",
       "email": "luis@email.com"
+    },
+    {
+      "id": "3",
+      "name": "Mario Gomez",
+      "email": "mario@email.com"
+    },
+    {
+      "id": "4",
+      "name": "Angel Lima",
+      "email": "angel@email.com"
+    },
+    {
+      "id": "5",
+      "name": "Luisa Amado",
+      "email": "luisa@email.com"
+    },
+    {
+      "id": "6",
+      "name": "María González",
+      "email": "maria@email.com"
     }
   ],
   "registrations": [
